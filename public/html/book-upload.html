@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+
+    <title>Upload Book - Pustak Aura</title>
+
+    <!-- Favicon -->
+    <link href="img/book-alt.png" rel="icon" type="image/x-icon" />
+
+    <!-- Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Mobile Menu -->
+    <link href="css/mmenu.css" rel="stylesheet" type="text/css" />
+    <link href="css/mmenu.positioning.css" rel="stylesheet" type="text/css" />
+
+    <!-- Styles -->
+    <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR (Copied From Your Design) ================= -->
+    <header id="header" class="inner-navbar-wrapper navbar-wrapper">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    Pustak Aura
+                </a>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="books-media-list-view.html">Books & Media</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="news-events-list-view.html">News & Events</a>
+                        </li>
+
+                        <!-- NEW MENU ITEM -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="book-upload.html">Upload Book</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ================= PAGE BANNER ================= -->
+    <section class="inner-page-banner">
+        <div class="container">
+            <div class="banner-header text-center">
+                <h2>Upload New Book</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active">Upload Book</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <div id="content" class="site-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+
+                    <div class="card p-4 mb-5" style="box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: 10px;">
+
+                        <form id="uploadForm" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <label>Book Title</label>
+                                <input type="text" class="form-control" name="title" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Book Description</label>
+                                <textarea class="form-control" name="description" rows="4" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Author Name</label>
+                                <input type="text" class="form-control" name="author" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Publishing Date</label>
+                                <input type="date" class="form-control" name="publishDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>ISBN Number</label>
+                                <input type="text" class="form-control" name="isbn" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload PDF File</label>
+                                <input type="file" class="form-control" name="pdfFile" accept=".pdf" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload Thumbnail Image</label>
+                                <input type="file" class="form-control" name="thumbnail" accept="image/*" required>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-primary px-5">
+                                    <i class="fa fa-upload"></i> Upload Book
+                                </button>
+                            </div>
+
+                        </form>
+
+                        <div id="responseMessage" class="mt-3 text-center"></div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER (SIMPLE VERSION) ================= -->
+    <footer class="site-footer">
+        <div class="container text-center py-4">
+            <p>&copy; 2026 Pustak Aura. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            try {
+                console.log("uploading book...");
+                console.log("formdata",formData);
+                const response = await fetch("http://localhost:5000/upload-book", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                document.getElementById("responseMessage").innerHTML =
+                    "<span style='color:green'>" + result.message + "</span>";
+
+                this.reset();
+
+            } catch (error) {
+                document.getElementById("responseMessage").innerHTML =
+                    "<span style='color:red'>Upload failed!</span>";
+            }
+        });
+    </script>
+
+</body>
+</html>

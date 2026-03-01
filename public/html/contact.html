@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+
+
+<head>
+
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <!-- Title -->
+    <title>..:: Pustak Aura - Online Courses and Library ::..</title>
+
+    <!-- Favicon -->
+    <link href="img/book-alt.png" rel="icon" type="image/x-icon" />
+
+    <!-- Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Animation-->
+    <link href="css/aos.css" rel="stylesheet" type="text/css" />
+    <!-- Mobile Menu -->
+    <link href="css/mmenu.css" rel="stylesheet" type="text/css" />
+    <link href="css/mmenu.positioning.css" rel="stylesheet" type="text/css" />
+    <!-- Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+                                <script src="js/html5shiv.min.js"></script>
+                                <script src="js/respond.min.js"></script>
+                                <![endif]-->
+</head>
+
+
+<body>
+
+    <!-- Start: Header Section -->
+    <header id="header" class="inner-navbar-wrapper navbar-wrapper">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    Pustak Aura
+                </a>
+                <div class="inner-header-search">
+                    <input class="form-control" type="text" placeholder="Search Anything">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/" data-toggle="dropdown" aria-expanded="false">Home</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/">Home V1</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a data-toggle="dropdown" aria-expanded="false" class="nav-link dropdown-toggle" href="books-media-list-view.html">Books &amp; Media</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="books-media-list-view.html">Books &amp; Media List
+                                        View</a>
+                                </li>
+                                <li><a href="books-media-gird-view.html">Books &amp; Media Grid
+                                        View</a></li>
+                                <!-- <li><a href="books-media-v3.html">Books &amp; Media V3</a></li>
+                                <li><a href="books-media-detail-v1.html">Books &amp; Media
+                                        Detail V1</a>
+                                </li>
+                                <li><a href="books-media-detail-v2.html">Books &amp; Media
+                                        Detail V2</a>
+                                </li>
+                                <li><a href="books-media-detail-v3.html">Books &amp; Media
+                                        Detail V3</a> -->
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                News &amp; Events
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="news-events-list-view.html">News &amp; Events List
+                                        View</a>
+                                </li>
+                                <li><a href="news-events-detail.html">News &amp; Events
+                                        Detail</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Pages
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="wishlist.html">wishlist</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="signin.html">Signin/Register</a></li>
+                                <li><a href="signup.html">Signin/Register</a></li>
+                                <li><a href="404.html">404/Error</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Blog
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="blog-list.html">Blog List View</a></li>
+                                <li><a href="blog-grid.html">Blog Grid View</a></li>
+                                <li><a href="blog-detail.html">Blog Detail</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a>
+                    </ul>
+                    <div class="header-login-btn">
+                        <a href="signin.html" class="btn btn-light"><i class="fa fa-user"></i>
+                            Login</a>
+                        <a href="cart.html" class="btn btn-light"><i class="fa fa-cart-plus"></i>
+                            Cart</a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Header Main Navigation End-->
+            <!-- Mobile Navigation-->
+            <div class="mobile-menu d-lg-none">
+                <a href="#mobile-menu"><i class="fa fa-navicon"></i></a>
+                <div id="mobile-menu">
+                    <ul>
+                        <li class="mobile-title">
+                            <h4>Navigation</h4>
+                            <a href="#" class="close"></a>
+                        </li>
+                        <li>
+                            <a href="index.html">Home</a>
+                            <ul>
+                                <li><a href="index.html">Home V1</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="books-media-list-view.html">Books &amp; Media</a>
+                            <ul>
+                                <li><a href="books-media-list-view.html">Books &amp; Media List
+                                        View</a>
+                                </li>
+                                <li><a href="books-media-gird-view.html">Books &amp; Media Grid
+                                        View</a></li>
+                                <li><a href="books-media-v3.html">Books &amp; Media V3</a></li>
+                                <li><a href="books-media-detail-v1.html">Books &amp; Media
+                                        Detail V1</a>
+                                </li>
+                                <li><a href="books-media-detail-v2.html">Books &amp; Media
+                                        Detail V2</a>
+                                </li>
+                                <li><a href="books-media-detail-v3.html">Books &amp; Media
+                                        Detail V3</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="news-events-list-view.html">News &amp; Events</a>
+                            <ul>
+                                <li><a href="news-events-list-view.html">News &amp; Events List View</a>
+                                </li>
+                                <li><a href="news-events-detail.html">News &amp; Events Detail</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Pages</a>
+                            <ul>
+                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="signup.html">SignUp/Register</a></li>
+                                <li><a href="signin.html">SignIn</a></li>
+                                <li><a href="404.html">404/Error</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="blog-list.html">Blog</a>
+                            <ul>
+                                <li><a href="blog-list.html">Blog List View</a></li>
+                                <li><a href="blog-grid.html">Blog Grid View</a></li>
+                                <li><a href="blog-detail.html">Blog Detail</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Mobile Navigation End-->
+        </div>
+    </header>
+    <!-- End: Header Section -->
+    <div class="google-map">
+        <div id="map"></div>        
+    </div>
+    <div class="about-company-detail">
+        <div class="container">
+            <ul>
+                <li>
+                    <img src="images/icons/location-icon.png" alt="">
+                    <h6>Our Location</h6>
+                    <ol>
+                        <li> Agra </li>
+                        <li> India </li>
+                        <!-- <li> </li> -->
+                    </ol>
+                </li>
+                <li>
+                    <img src="images/icons/phone-icon.png" alt="">
+                    <h6>Phone and Fax</h6>
+                    <ol>
+                        <li><a href="tel:+0562-359-7066"><em>Mobile:</em> +0562-359-7066</a></li>
+                        <li><a href="tel:+0562-359-7066"><em>Phone:</em> +0562-359-7066</a></li>
+                        <!-- <li><a href="fax:(001)-254-7359"><em>Fax:</em> (001)-254-7359</a></li> -->
+                    </ol>
+                </li>
+                <li>
+                    <img src="images/icons/email-website-icon.png" alt="">
+                    <h6>Email Address</h6>
+                    <ol>
+                        <!-- <li><a href="http://www.libraria.com/">www.libraria.com </a></li> -->
+                        <li><a href="pustakaura@gmail.com">pustakaura@gmail.com</a></li>
+                        <li><a href="pustakaura@gmail.com"></a></li>
+                    </ol>
+                </li>
+                <li>
+                    <img src="images/icons/timming-icon.png" alt="" />
+                    <h6>Our Timings</h6>
+                    <p>Mon - Thu: 9:00 am - 7:00 pm</p>
+                    <p>Sat - Sun: 11:00 am - 5:00 pm</p>
+                    <div class="branches">
+                        <a href="#">Closings</a>
+                        <a href="#">Branches</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Start: Contact Us Section -->
+    <div id="content" class="site-content">
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main">
+                <div class="contact-main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6 class="sub-heading-v2">Get In Touch</h6>
+                                <h2 class="heading-v2">Send Us A Message</h2>
+                                <p class="lead-text">Sed nec fermentum leo. Vestibulum pulvinar, risus quis mollis posuere, lorem lectus pretium turpis, non elementum eros metus ut purus. Morbi hendrerit molestie augue luctus euismod. </p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="contact-form">
+                                    <form id="contact" name="contact" action="https://Pustak Aura.presstigers.dev/contact.html" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="First Name" name="first-name" id="first-name" size="30" value="" aria-required="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Last Name" name="last-name" id="last-name" size="30" value="" aria-required="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}₹" placeholder="Email" name="email" id="email" size="30" value="" aria-required="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text" placeholder="Phone Number" name="phone" id="phone" size="30" value="" aria-required="true" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" placeholder="Write Your Message ..." id="message" aria-required="true"></textarea>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                <label class="form-check-label" for="exampleCheck1">Accept <a
+                                                        href="#">terms</a> and <a href="#">privacy policy</a>.</label>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-submit">
+                                                    <input class="btn btn-secondary" id="submit-contact-form" type="button" name="submit" value="Send Message" />
+                                                </div>
+                                            </div>
+                                            <div id="success" class="d-none">
+                                                <span>Your message was sent successfully! Our
+                                                    team will contact you soon.</span>
+                                            </div>
+
+                                            <div id="error" class="d-none">
+                                                <span>Something went wrong, try refreshing and
+                                                    submitting the form again.</span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- End: Contact Us Section -->
+
+    <!-- Start: Testimonial Section -->
+    <section class="testimonial-main-v3">
+        <div class="container">
+            <div class="testimonial-social-main" style="background-image: none;">
+                <div class="row">
+                    <div class="col-md-10 mx-auto text-center">
+                        <h6 class="sub-heading-v2">Newsletter</h6>
+                        <h2 class="heading-v2">Subscribe Our Newsletter</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 mx-auto">
+                        <div class="form-group newsletter-inner">
+                            <input class="form-control" placeholder="Enter your Email!" id="newsletter" name="newsletter" type="email">
+                            <input class="btn btn-primary" value="Subscribe" type="submit">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="social-icons-v3">
+                <ul>
+                    <li>
+                        <a class="facebook" href="#" target="_blank">
+                        <span><i class="fa fa-facebook-f"></i> <small>Facebook</small></span>
+                    </a>
+                    </li>
+                    <li>
+                        <a class="twitter" href="#" target="_blank">
+                        <span><i class="fa fa-twitter"></i> <small>Twitter</small></span>
+                    </a>
+                    </li>
+                    <li>
+                        <a class="rss" href="#" target="_blank">
+                        <span><i class="fa fa-rss"></i> <small>Rss Feed</small></span>
+                    </a>
+                    </li>
+                    <li>
+                        <a class="linkedin" href="#" target="_blank">
+                        <span><i class="fa fa-linkedin"></i> <small>Linkedin</small></span>
+                    </a>
+                    </li>
+                    <li>
+                        <a class="youtube" href="#" target="_blank">
+                        <span><i class="fa fa-youtube"></i> <small>Youtube</small></span>
+                    </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End: Testimonial Section -->
+
+    <!-- Start: Footer -->
+    <footer class="site-footer site-footer-v3">
+        <div class="container">
+            <div class="footer-widgets">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6 widget-container">
+                        <div id="text-2" class="widget widget_text">
+                            <div class="about-us">
+                                <a href="index.html">
+                                Pustak Aura
+                            </a>
+                            </div>
+                            <div class="textwidget">
+                                The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum
+                                as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour
+                                and the like).
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 widget-container">
+                        <div id="nav_menu-2" class="widget widget_nav_menu">
+                            <h3 class="footer-widget-title">Quick Links</h3>
+                            <div class="menu-quick-links-container">
+                                <ul id="menu-quick-links" class="menu">
+                                    <li><a href="#">Library News</a></li>
+                                    <li><a href="#">History</a></li>
+                                    <li><a href="#">Meet Our Staff</a></li>
+                                    <li><a href="#">Board of Trustees</a></li>
+                                    <li><a href="#">Budget</a></li>
+                                    <li><a href="#">Annual Report</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 widget-container">
+                        <div id="text-4" class="widget widget_text">
+                            <h3 class="footer-widget-title">Timing</h3>
+                            <div class="timming-text-widget">
+                                <time datetime="2017-02-13">Mon - Thu: 9am - 9pm</time>
+                                <time datetime="2017-02-13">Fri: 9am - 6pm</time>
+                                <time datetime="2017-02-13">Sat: 9am - 5pm</time>
+                                <time datetime="2017-02-13">Sun: 1pm - 6pm</time>
+                                <ul>
+                                    <li><a href="#">Closings</a></li>
+                                    <li><a href="#">Branches</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 widget-container">
+                        <div class="widget twitter-widget">
+                            <h3 class="footer-widget-title">Contact Info</h3>
+                            <address>
+                            <div class="info">
+                                <i class="fa fa-location-arrow"></i>
+                                <span> Agra India</span>
+                            </div>
+                            <div class="info">
+                                <i class="fa fa-envelope"></i>
+                                <span><a href="mailto:pustakaura@gmail.com">pustakaura@gmail.com</a></span>
+                            </div>
+                            <div class="info">
+                                <i class="fa fa-phone"></i>
+                                <span><a href="tel:+0562-359-7066">+0562-359-7066</a></span>
+                            </div>
+                        </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-text col-md-3">
+                        <p>&copy; 2020 <a href="index.html">Pustak Aura</a>. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-9 pull-right">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="books-media-list-view.html">Books &amp; Media</a></li>
+                            <li><a href="news-events-list-view.html">News &amp; Events</a></li>
+                            <li><a href="#">Kids &amp; Teens</a></li>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="#">Research</a></li>
+                            <li><a href="blog-grid.html">Blog</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="myBtn" title="Go to top"><span>&#8593;</span></button>
+    </footer>
+    <!-- End: Footer -->
+
+    <!-- jQuery Latest Version 1.x -->
+    <script src="../code.jquery.com/jquery-2.2.3.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="js/jquery-ui.min.js"></script>
+
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Mobile Menu -->
+    <script src="js/mmenu.min.js"></script>
+
+    <!-- Harvey - State manager for media queries -->
+    <script src="js/harvey.min.js"></script>
+
+    <!-- Waypoints - Load Elements on View -->
+    <script src="js/waypoints.min.js"></script>
+
+    <!-- Facts Counter -->
+    <script src="js/facts.counter.min.js"></script>
+
+    <!-- MixItUp - Category Filter -->
+    <script src="js/mixitup.min.js"></script>
+
+    <!-- Owl Carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+
+    <!-- Accordion -->
+    <script src="js/accordion.min.js"></script>
+
+    <!-- Masonry -->
+    <script src="js/masonry.min.js"></script>
+
+    <!-- Carousel Swipe -->
+    <script src="js/carousel.swipe.min.js"></script>
+
+    <!-- Testimonial Home Page V3 -->
+    <script src="js/card-slider-min.js"></script>
+
+    <!-- Google Map API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAT5k-RhvFSVIuCALkpHhKgQx6SJUd9gpI"></script>
+    <script src="js/google.map.js"></script>
+
+    <!-- Animation Scripts -->
+    <script src="js/aos.js"></script>
+    <script src="js/highlight.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/main.js"></script>
+
+</body>
+
+
+
+</html>
