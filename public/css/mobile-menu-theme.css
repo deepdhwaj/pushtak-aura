@@ -1,0 +1,146 @@
+/**
+ * Mobile Menu Theme - Matches Pustak Aura app design
+ * Primary: #f0582f | Text: #282828 | Background: #fff
+ */
+
+/* Override mmenu dark theme with app's light theme */
+.mm-menu.mm-ismenu,
+.mm-menu {
+  background: #fff !important;
+  color: #282828;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.08);
+}
+
+/* List items - match navbar styling */
+.mm-menu .mm-list > li > a,
+.mm-menu .mm-list > li > span {
+  color: #282828 !important;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.mm-menu .mm-list > li > a:hover,
+.mm-menu .mm-list > li > a:focus {
+  color: #f0582f !important;
+  background-color: rgba(240, 88, 47, 0.06);
+}
+
+/* Selected/active state */
+.mm-menu .mm-list > li.mm-selected > a:not(.mm-subopen),
+.mm-menu .mm-list > li.mm-selected > span {
+  color: #f0582f !important;
+  background-color: rgba(240, 88, 47, 0.08);
+}
+
+/* Hover state - match dropdown hover */
+.mm-menu .mm-list > li:hover {
+  background-color: #f0582f;
+}
+
+.mm-menu .mm-list > li:hover > a,
+.mm-menu .mm-list > li:hover > a.mm-subopen + a {
+  color: #fff !important;
+}
+
+/* Divider lines between items */
+.mm-menu .mm-list > li:after {
+  border-color: #e5e5e5 !important;
+}
+
+/* Mobile title header - match navbar header style */
+.mm-menu .mm-list > li.mobile-title {
+  background: #f7f7f7;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mm-menu .mm-list > li.mobile-title:hover {
+  background: #f7f7f7;
+}
+
+.mm-menu .mm-list > li.mobile-title h4 {
+  color: #282828 !important;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Close button - use X icon style matching primary */
+.mm-menu .mm-list > li.mobile-title .close {
+  background: none !important;
+  color: #282828;
+  font-size: 24px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  float: right;
+  margin: -2px 0 0 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+.mm-menu .mm-list > li.mobile-title .close:hover {
+  color: #f0582f;
+}
+
+.mm-menu .mm-list > li.mobile-title .close::before {
+  content: '×';
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Submenu arrow */
+.mm-menu .mm-list > li > a.mm-subopen:after,
+.mm-menu .mm-list > li > a.mm-subclose:before {
+  border-color: #282828 !important;
+}
+
+.mm-menu .mm-list > li:hover > a.mm-subopen:after {
+  border-color: #fff !important;
+}
+
+/* Submenu panel - nested items */
+.mm-menu .mm-panel .mm-list > li > a,
+.mm-menu .mm-panel .mm-list > li > span {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+  padding: 12px 20px 12px 36px;
+}
+
+.mm-menu .mm-panel .mm-list > li > a:hover {
+  background-color: rgba(240, 88, 47, 0.06);
+  color: #f0582f !important;
+}
+
+/* Opened submenu parent */
+.mm-menu.mm-vertical .mm-list li.mm-opened > a.mm-subopen,
+.mm-menu.mm-vertical .mm-list li.mm-opened > ul {
+  background-color: rgba(240, 88, 47, 0.04);
+}
+
+/* Blocker overlay - subtle */
+html.mm-opened #mm-blocker {
+  background: rgba(40, 40, 40, 0.4);
+}
+
+/* Page shadow when menu open */
+html.mm-opened .mm-page {
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+}

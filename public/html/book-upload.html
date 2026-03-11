@@ -21,45 +21,26 @@
     <!-- Styles -->
     <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/mobile-menu-theme.css" rel="stylesheet" type="text/css" />
+    <style>
+        .btn-upload-book {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-upload-book,
+        .btn-upload-book:hover,
+        .btn-upload-book:focus {
+            color: #fff !important;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ================= NAVBAR (Copied From Your Design) ================= -->
-    <header id="header" class="inner-navbar-wrapper navbar-wrapper">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/">
-                    Pustak Aura
-                </a>
-
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="books-media-list-view.html">Books & Media</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="news-events-list-view.html">News & Events</a>
-                        </li>
-
-                        <!-- NEW MENU ITEM -->
-                        <li class="nav-item">
-                            <a class="nav-link active" href="book-upload.html">Upload Book</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <!-- Start: Header Section (loaded from partials/navbar.html) -->
+    <div id="navbar-placeholder"></div>
+    <!-- End: Header Section -->
 
     <!-- ================= PAGE BANNER ================= -->
     <section class="inner-page-banner">
@@ -87,43 +68,43 @@
                         <form id="uploadForm" enctype="multipart/form-data">
 
                             <div class="form-group">
-                                <label>Book Title</label>
-                                <input type="text" class="form-control" name="title" required>
+                                <label>Book Title <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="title" id="title" required placeholder="Enter book title">
                             </div>
 
                             <div class="form-group">
                                 <label>Book Description</label>
-                                <textarea class="form-control" name="description" rows="4" required></textarea>
+                                <textarea class="form-control" name="description" rows="4" placeholder="Enter description"></textarea>
                             </div>
 
                             <div class="form-group">
-                                <label>Author Name</label>
-                                <input type="text" class="form-control" name="author" required>
+                                <label>Author Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="author" id="author" required placeholder="Enter author name">
                             </div>
 
                             <div class="form-group">
                                 <label>Publishing Date</label>
-                                <input type="date" class="form-control" name="publishDate" required>
+                                <input type="date" class="form-control" name="publishDate">
                             </div>
 
                             <div class="form-group">
                                 <label>ISBN Number</label>
-                                <input type="text" class="form-control" name="isbn" required>
+                                <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN">
                             </div>
 
                             <div class="form-group">
-                                <label>Upload PDF File</label>
-                                <input type="file" class="form-control" name="pdfFile" accept=".pdf" required>
+                                <label>Upload PDF File <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" name="pdfFile" id="pdfFile" accept=".pdf" required>
                             </div>
 
                             <div class="form-group">
-                                <label>Upload Thumbnail Image</label>
-                                <input type="file" class="form-control" name="thumbnail" accept="image/*" required>
+                                <label>Upload Thumbnail Image <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" name="thumbnail" id="thumbnail" accept="image/*" required>
                             </div>
 
                             <div class="text-center mt-4">
-                                <button type="submit" class="btn btn-primary px-5">
-                                    <i class="fa fa-upload"></i> Upload Book
+                                <button type="submit" class="btn btn-primary px-5 btn-upload-book">
+                                    <i class="fa fa-upload"></i> <span>Upload Book</span>
                                 </button>
                             </div>
 
@@ -149,18 +130,41 @@
 
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/mmenu.min.js"></script>
+    <script src="js/harvey.min.js"></script>
+    <script src="js/navbar-loader.js"></script>
+    <script src="js/main.js"></script>
 
     <script>
         document.getElementById("uploadForm").addEventListener("submit", async function (e) {
             e.preventDefault();
+
+            const msgEl = document.getElementById("responseMessage");
+            const title = (document.getElementById("title") || this.querySelector('[name="title"]')).value.trim();
+            const author = (document.getElementById("author") || this.querySelector('[name="author"]')).value.trim();
+            const pdfFile = document.getElementById("pdfFile") || this.querySelector('[name="pdfFile"]');
+            const thumbnail = document.getElementById("thumbnail") || this.querySelector('[name="thumbnail"]');
+
+            const errors = [];
+            if (!title) errors.push("Book Title is required.");
+            if (!author) errors.push("Author Name is required.");
+            if (!pdfFile || !pdfFile.files || pdfFile.files.length === 0) errors.push("PDF File is required.");
+            if (!thumbnail || !thumbnail.files || thumbnail.files.length === 0) errors.push("Thumbnail Image is required.");
+
+            if (errors.length > 0) {
+                msgEl.innerHTML = "<span style='color:red'>" + errors.join(" ") + "</span>";
+                return;
+            }
+
+            msgEl.innerHTML = "";
 
             const formData = new FormData(this);
 
             try {
                 console.log("uploading book...");
                 console.log("formdata",formData);
-                const baseUrl = window.location.host;
-                const endpoint = `https://${baseUrl}/upload-book`;
+                const baseUrl = window.location.origin;
+                const endpoint = `${baseUrl}/upload-book`;
                 const response = await fetch(endpoint, {
                     method: "POST",
                     body: formData
@@ -168,10 +172,17 @@
 
                 const result = await response.json();
 
-                document.getElementById("responseMessage").innerHTML =
-                    "<span style='color:green'>" + result.message + "</span>";
-
-                this.reset();
+                if (response.ok && result.message) {
+                    document.getElementById("responseMessage").innerHTML =
+                        "<span style='color:green'>" + result.message + "</span>";
+                    this.reset();
+                    setTimeout(function () {
+                        window.location.href = window.location.origin + "/books-media";
+                    }, 1500);
+                } else {
+                    document.getElementById("responseMessage").innerHTML =
+                        "<span style='color:red'>" + (result.message || "Upload failed!") + "</span>";
+                }
 
             } catch (error) {
                 document.getElementById("responseMessage").innerHTML =
