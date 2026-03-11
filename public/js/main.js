@@ -40,14 +40,16 @@ $(function () {
   var toggleMenu = {
     elem: MenuObj,
     mobile: function () {
-      //activate mmenu
-      mobileMenuObj.mmenu({
-        slidingSubmenus: false,
-        position: 'right',
-        zposition: 'front'
-      }, {
-        pageSelector: '#wrap'
-      });
+      //activate mmenu (only if not already initialized)
+      if (!document.querySelector('.mm-menu')) {
+        mobileMenuObj.mmenu({
+          slidingSubmenus: false,
+          position: 'right',
+          zposition: 'front'
+        }, {
+          pageSelector: '#wrap'
+        });
+      }
 
       //hide desktop top menu
       this.elem.hide();
@@ -61,12 +63,42 @@ $(function () {
     }
   };
 
+  // Initialize mmenu on load - use setTimeout to ensure DOM is fully ready after navbar injection
+  function initMmenu() {
+    var $menu = $('#mobile-menu');
+    if ($menu.length && !document.querySelector('.mm-menu')) {
+      $menu.mmenu({
+        slidingSubmenus: false,
+        position: 'right',
+        zposition: 'front'
+      }, {
+        pageSelector: '#wrap'
+      });
+    }
+  }
+
+  initMmenu();
+
+  // Explicit opener - mmenu's built-in opener may not bind correctly with dynamically loaded navbar
+  $(document).on('click', '#mobile-menu-opener, a[href="#mobile-menu"], .mobile-menu-trigger', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $menu = $('#mobile-menu');
+    if ($menu.length) {
+      var api = $menu.data('mmenu');
+      if (api && typeof api.open === 'function') {
+        api.open();
+      } else {
+        $menu.trigger('open.mm');
+      }
+    }
+  });
+
   Harvey.attach('screen and (max-width:991px)', {
     setup: function () {
-      //called when the query becomes valid for the first time
+      toggleMenu.mobile();
     },
     on: function () {
-      //called each time the query is activated
       toggleMenu.mobile();
     },
     off: function () {
@@ -76,10 +108,9 @@ $(function () {
 
   Harvey.attach('screen and (min-width:992px)', {
     setup: function () {
-      //called when the query becomes valid for the first time
+      toggleMenu.desktop();
     },
     on: function () {
-      //called each time the query is activated
       toggleMenu.desktop();
     },
     off: function () {

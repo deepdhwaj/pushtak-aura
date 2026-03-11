@@ -1,0 +1,129 @@
+<!-- Shared Navbar - Active state set by navbar-loader.js based on current URL -->
+<header id="header" class="inner-navbar-wrapper navbar-wrapper">
+    <button id="myBtn" title="Go to top" aria-label="Go to top"><span>&#8593;</span></button>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Pustak Aura</a>
+            <!-- Bootstrap toggler hidden - we use mmenu for mobile only -->
+            <button class="navbar-toggler d-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="inner-header-search d-none d-lg-flex">
+                <input class="form-control" type="text" placeholder="Search Anything" aria-label="Search">
+                <button type="submit" class="btn btn-primary" aria-label="Search"><i class="fa fa-search"></i></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" data-nav-section="home">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown" data-nav-section="books-media">
+                        <a class="nav-link dropdown-toggle" href="/books-media" data-toggle="dropdown" aria-expanded="false">Books &amp; Media</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/books-media">Books &amp; Media List View</a></li>
+                            <li><a class="dropdown-item" href="/books-media-gird">Books &amp; Media Grid View</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" data-nav-section="news-events">
+                        <a class="nav-link dropdown-toggle" href="/news-events-list" data-toggle="dropdown" aria-expanded="false">News &amp; Events</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/news-events-list">News &amp; Events List View</a></li>
+                            <li><a class="dropdown-item" href="/news-events">News &amp; Events Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" data-nav-section="pages">
+                        <a class="nav-link dropdown-toggle" href="/about" data-toggle="dropdown" aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/about">About Us</a></li>
+                            <li><a class="dropdown-item" href="/cart">Cart</a></li>
+                            <li><a class="dropdown-item" href="/wishlist">Wishlist</a></li>
+                            <li><a class="dropdown-item" href="/checkout">Checkout</a></li>
+                            <li><a class="dropdown-item" href="/signup">SignUp/Register</a></li>
+                            <li><a class="dropdown-item" href="/signin">SignIn</a></li>
+                            <li><a class="dropdown-item" href="/404">404/Error</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" data-nav-section="blog">
+                        <a class="nav-link dropdown-toggle" href="/blog" data-toggle="dropdown" aria-expanded="false">Blog</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/blog">Blog List View</a></li>
+                            <li><a class="dropdown-item" href="/blog-grid">Blog Grid View</a></li>
+                            <li><a class="dropdown-item" href="/post">Blog Detail</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" data-nav-section="upload">
+                        <a class="nav-link" href="/upload">Upload Book</a>
+                    </li>
+                    <li class="nav-item" data-nav-section="contact">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="header-login-btn">
+                    <a href="/signin" class="btn btn-light"><i class="fa fa-user"></i> Login</a>
+                    <a href="/cart" class="btn btn-light"><i class="fa fa-cart-plus"></i> Cart</a>
+                </div>
+            </div>
+        </nav>
+        <!-- Mobile Navigation (mmenu) - only visible below 992px -->
+        <div class="mobile-menu d-lg-none">
+            <a href="#mobile-menu" id="mobile-menu-opener" class="mobile-menu-trigger" aria-label="Open menu">
+                <svg class="burger-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </a>
+            <nav id="mobile-menu">
+                <ul>
+                    <li class="mobile-title">
+                        <h4>Navigation</h4>
+                        <a href="#" class="close" aria-label="Close menu"></a>
+                    </li>
+                    <li>
+                        <a href="/">Home</a>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/books-media">Books &amp; Media</a>
+                        <ul>
+                            <li><a href="/books-media">Books &amp; Media List View</a></li>
+                            <li><a href="/books-media-gird">Books &amp; Media Grid View</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/news-events-list">News &amp; Events</a>
+                        <ul>
+                            <li><a href="/news-events-list">News &amp; Events List View</a></li>
+                            <li><a href="/news-events">News &amp; Events Detail</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/about">Pages</a>
+                        <ul>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/cart">Cart</a></li>
+                            <li><a href="/wishlist">Wishlist</a></li>
+                            <li><a href="/checkout">Checkout</a></li>
+                            <li><a href="/signup">SignUp/Register</a></li>
+                            <li><a href="/signin">SignIn</a></li>
+                            <li><a href="/404">404/Error</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/blog">Blog</a>
+                        <ul>
+                            <li><a href="/blog">Blog List View</a></li>
+                            <li><a href="/blog-grid">Blog Grid View</a></li>
+                            <li><a href="/post">Blog Detail</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/upload">Upload Book</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>

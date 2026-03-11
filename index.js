@@ -1,129 +1,104 @@
+require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
-const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const { uploadBook, getBooksWithUrls, deleteBook, ensureBucketExists, ensureTableExists } = require("./services/aws-service");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
 
-const bookpath = "public/books";
-/* Ensure books folder exists */
-if (!fs.existsSync(bookpath)) {
-    fs.mkdirSync(bookpath);
-}
-
-/* Metadata file path */
-const metadataPath = path.join(bookpath, "metadata.js");
-
-/* Initialize metadata file if not exists */
-if (!fs.existsSync(metadataPath)) {
-    fs.writeFileSync(metadataPath, "const books = {};\n\nmodule.exports = books;");
-}
-
-/* Load existing metadata */
-function loadMetadata() {
-    delete require.cache[require.resolve("./public/books/metadata.js")];
-    return require("./public/books/metadata.js");
-}
-
-/* Save metadata */
-function saveMetadata(data) {
-    const content =
-        "const books = " +
-        JSON.stringify(data, null, 2) +
-        ";\n\nmodule.exports = books;";
-    fs.writeFileSync(metadataPath, content);
-}
-
-/* Multer Storage */
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "public/books/");
-    },
-    filename: function (req, file, cb) {
-        const timestamp = Date.now();
-        const nameWithoutExt = path.parse(file.originalname).name;
-        const uniqueBase = timestamp + "-" + nameWithoutExt;
-
-        if (file.fieldname === "pdf_file") {
-            cb(null, uniqueBase + ".pdf");
-        } else {
-            cb(null, uniqueBase + path.extname(file.originalname));
-        }
-    }
+/* Multer memory storage - files kept in RAM for S3 upload */
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 50 * 1024 * 1024 }, /* 50MB max */
 });
 
-const upload = multer({ storage });
+app.get("/health", (req, res) => {
+    res.json({ message: "All is set!" });
+});
 
-app.get("/health",(req,res)=>{
-    res.json({
-        message: "All is set!"
-    })
-})
-
-/* ================= GET ALL BOOKS ================= */
-app.get("/api/books", (req, res) => {
+/* ================= GET ALL BOOKS (from DynamoDB + presigned S3 URLs) ================= */
+app.get("/api/books", async (req, res) => {
     try {
-        const books = loadMetadata();
-
-        // Convert object into array
-        const booksArray = Object.keys(books).map(key => ({
-            key,
-            ...books[key]
-        }));
+        const books = await getBooksWithUrls(3600);
 
         res.json({
             success: true,
-            count: booksArray.length,
-            books: booksArray
+            count: books.length,
+            books,
         });
-
     } catch (error) {
+        console.error("Error fetching books:", error);
         res.status(500).json({
             success: false,
-            message: "Error fetching books"
+            message: "Error fetching books",
         });
     }
 });
 
-/* Upload Endpoint */
-app.post("/upload-book", upload.fields([
-    { name: "pdfFile", maxCount: 1 },
-    { name: "thumbnail", maxCount: 1 }
-]), (req, res) => {
+/* Upload Endpoint - S3 + DynamoDB */
+app.post(
+    "/upload-book",
+    upload.fields([
+        { name: "pdfFile", maxCount: 1 },
+        { name: "thumbnail", maxCount: 1 },
+    ]),
+    async (req, res) => {
+        try {
+            if (!req.files?.pdfFile?.[0] || !req.files?.thumbnail?.[0]) {
+                return res.status(400).json({
+                    message: "Both PDF and thumbnail are required",
+                });
+            }
 
-    console.log('uploading book');
-    console.log(req.body);
-    console.log(req.files);
-    const pdfFile = req.files["pdfFile"][0];
-    const thumbFile = req.files["thumbnail"][0];
+            const pdfFile = req.files.pdfFile[0];
+            const thumbFile = req.files.thumbnail[0];
 
-    const key = path.parse(pdfFile.filename).name; // filename without extension
+            const metadata = {
+                title: req.body.title,
+                description: req.body.description,
+                author: req.body.author,
+                publish_date: req.body.publish_date || req.body.publishDate,
+                isbn: req.body.isbn,
+            };
 
-    const books = loadMetadata();
+            const { key } = await uploadBook({
+                pdfBuffer: pdfFile.buffer,
+                pdfOriginalName: pdfFile.originalname,
+                thumbnailBuffer: thumbFile.buffer,
+                thumbnailOriginalName: thumbFile.originalname,
+                metadata,
+            });
 
-    books[key] = {
-        title: req.body.title,
-        description: req.body.description,
-        author: req.body.author,
-        publish_date: req.body.publish_date,
-        isbn: req.body.isbn,
-        pdf: pdfFile.filename,
-        thumbnail: thumbFile.filename
-    };
+            res.json({ message: "Book + Metadata stored successfully!", key });
+        } catch (error) {
+            console.error("Upload error:", error);
+            res.status(500).json({
+                message: "Upload failed",
+            });
+        }
+    }
+);
 
-    saveMetadata(books);
-
-    res.json({ message: "Book + Metadata stored successfully!", key });
+/* ================= DELETE BOOK ================= */
+app.delete("/api/books/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        await deleteBook(id);
+        res.json({ success: true, message: "Book deleted successfully" });
+    } catch (error) {
+        console.error("Delete book error:", error);
+        const status = error.message === "Book not found" ? 404 : 500;
+        res.status(status).json({
+            success: false,
+            message: error.message || "Failed to delete book",
+        });
+    }
 });
 
-/* Serve entire public folder */
-app.use(express.static(path.join(__dirname, "public")));
-
-/* Default route */
+/* Page routes - must be before static to avoid 404 */
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "html/index.html"));
 });
@@ -137,7 +112,7 @@ app.get("/books-media", (req, res) => {
 });
 
 app.get("/books-media-gird", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "html/book-media-gird-view.html"));
+    res.sendFile(path.join(__dirname, "public", "html/books-media-gird-view.html"));
 });
 
 app.get("/news-events", (req, res) => {
@@ -172,6 +147,10 @@ app.get("/sigin", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "html/signin.html"));
 });
 
+app.get("/signin", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "html/signin.html"));
+});
+
 app.get("/signup", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "html/signup.html"));
 });
@@ -196,13 +175,37 @@ app.get("/blog", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "html/blog-list.html"));
 });
 
+app.get("/blog-grid", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "html/blog-grid.html"));
+});
+
 app.get("/contact", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "html/contact.html"));
 });
 
+app.get("/404", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "html/404.html"));
+});
+
+/* Serve entire public folder (after routes) */
+app.use(express.static(path.join(__dirname, "public")));
+
 const PORT = process.env.PORT || 5000;
 
 /* Start server */
-app.listen(PORT, () => {
-    console.log("Server running at http://localhost:5000");
-});
+async function start() {
+    try {
+        await ensureBucketExists();
+    } catch (err) {
+        console.error("S3 bucket check/create failed:", err.message);
+    }
+    try {
+        await ensureTableExists();
+    } catch (err) {
+        console.error("DynamoDB table check/create failed:", err.message);
+    }
+    app.listen(PORT, () => {
+        console.log("Server running at http://localhost:5000");
+    });
+}
+start();
